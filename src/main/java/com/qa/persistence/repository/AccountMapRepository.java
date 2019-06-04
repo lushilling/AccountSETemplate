@@ -22,28 +22,24 @@ public class AccountMapRepository implements AccountRepository {
 	// You can use the suggested tests or build your own.
 
 	public String getAllAccounts() {
-		// TODO Auto-generated method stub
 		return accountMap.toString();
 	}
 
 	public String createAccount(String account) {
-		// TODO Auto-generated method stub
 		Account newAccount = jsonutil.getObjectForJSON(account, Account.class);
 		accountMap.put(newAccount.getId(), newAccount);
-		return null;
-	}
+		return "Account added";
+	} 
 
 	public String deleteAccount(int accountNumber) {
-		// TODO Auto-generated method stu
 		accountMap.remove(accountNumber);
-		return null;
+		return "Account deleted";
 	}
 
 	public String updateAccount(int accountNumber, String account) {
-		// TODO Auto-generated method stub
 		Account updateAccount = jsonutil.getObjectForJSON(account, Account.class);
-		accountMap.put(accountNumber, updateAccount);
-		return null;
+		accountMap.replace(accountNumber, updateAccount);
+		return "Account updated";
 	}
 
 }
