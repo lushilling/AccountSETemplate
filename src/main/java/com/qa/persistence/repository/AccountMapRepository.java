@@ -10,7 +10,7 @@ public class AccountMapRepository implements AccountRepository {
 
 	Map<Integer, Account> accountMap = new HashMap<Integer, Account>();
 
-	JSONUtil jsonutil = new JSONUtil();
+	JSONUtil json = new JSONUtil();
 
 	// You must provide concrete implementation for each of these methods
 	// do not change the method signature
@@ -22,14 +22,14 @@ public class AccountMapRepository implements AccountRepository {
 	// You can use the suggested tests or build your own.
 
 	public String getAllAccounts() {
-		return accountMap.toString();
+		return json.getJSONForObject(accountMap);
 	}
 
 	public String createAccount(String account) {
-		Account newAccount = jsonutil.getObjectForJSON(account, Account.class);
+		Account newAccount = json.getObjectForJSON(account, Account.class);
 		accountMap.put(newAccount.getId(), newAccount);
-		return "Account added";
-	} 
+		return "Account created";
+	}
 
 	public String deleteAccount(int accountNumber) {
 		accountMap.remove(accountNumber);
@@ -37,7 +37,7 @@ public class AccountMapRepository implements AccountRepository {
 	}
 
 	public String updateAccount(int accountNumber, String account) {
-		Account updateAccount = jsonutil.getObjectForJSON(account, Account.class);
+		Account updateAccount = json.getObjectForJSON(account, Account.class);
 		accountMap.replace(accountNumber, updateAccount);
 		return "Account updated";
 	}

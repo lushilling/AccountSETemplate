@@ -11,17 +11,24 @@ import com.qa.util.JSONUtil;
 
 public class AccountServiceTest {
 
-	AccountMapRepository amr = new AccountMapRepository();
+	AccountMapRepository amr;
+	JSONUtil jutil;
+	Account acc1;
+	Account acc2;
+	Account acc3;
 
 	@Before
 	public void setup() {
-
+		amr = new AccountMapRepository();
+		jutil = new JSONUtil();
+		acc1 = new Account(1, 1, "Lucy", "Shilling");
+		acc2 = new Account(2, 2, "Tom", "Shilling");
+		acc3 = new Account(3, 3, "Charlie", "Shilling");
 	}
 
 	@Test
 	public void addAccountTest() {
-		Account acc1 = new Account(1, 1, "Lucy", "Shilling");
-		JSONUtil jutil = new JSONUtil();
+
 		System.out.println(jutil.getJSONForObject(acc1));
 
 		assertTrue(amr.getAllAccounts() != null);
@@ -29,9 +36,7 @@ public class AccountServiceTest {
 
 	@Test
 	public void add2AccountsTest() {
-		Account acc2 = new Account(2, 2, "Tom", "Shilling");
-		Account acc3 = new Account(3, 3, "Charlie", "Shilling");
-		JSONUtil jutil = new JSONUtil();
+
 		System.out.println(jutil.getJSONForObject(acc2));
 		System.out.println(jutil.getJSONForObject(acc3));
 
@@ -40,25 +45,22 @@ public class AccountServiceTest {
 
 	@Test
 	public void removeAccountTest() {
-		Account acc1 = new Account(1, 1, "Lucy", "Shilling");
-		JSONUtil jutil = new JSONUtil();
+
 		String newAcc1 = jutil.getJSONForObject(acc1);
 		amr.createAccount(newAcc1);
-		
-		assertEquals( "Account deleted", amr.deleteAccount(1));
-		
+
+		assertEquals("Account deleted", amr.deleteAccount(1));
+
 	}
 
 	@Test
 	public void remove2AccountsTest() {
-		Account acc2 = new Account(2, 2, "Tom", "Shilling");
-		Account acc3 = new Account(3, 3, "Charlie", "Shilling");
-		JSONUtil jutil = new JSONUtil();
+
 		String newAcc2 = jutil.getJSONForObject(acc2);
 		String newAcc3 = jutil.getJSONForObject(acc3);
 		amr.createAccount(newAcc2);
 		amr.createAccount(newAcc3);
-		
+
 		assertEquals("Account deleted", amr.deleteAccount(2), amr.deleteAccount(3));
 	}
 
